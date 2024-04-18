@@ -17,7 +17,9 @@ function isGTten(el){
 * */
 
 function multiFilter() {
-
+	return function (element) {
+		return filters.every(filter => filter(element))
+	}
 }
 
 module.exports = multiFilter

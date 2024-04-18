@@ -35,122 +35,41 @@ A component will not appear at all if its value happens to be zero. Hence, 1 min
 *  Формально длительность, указанная в компоненте, не должна превышать любую допустимую более значимую единицу времени.
 *
 * * */
-function formatDuration (seconds) {
+function formatDuration(seconds) {
+	if (seconds === 0) return 'now'
 
+	let years = Math.floor(seconds / (365 * 24 * 60 * 60))
+	seconds %= 365 * 24 * 60 * 60
+
+	let days = Math.floor(seconds / (24 * 60 * 60))
+	seconds %= 24 * 60 * 60
+
+	let hours = Math.floor(seconds / (60 * 60))
+	seconds %= 60 * 60
+
+	let minutes = Math.floor(seconds / 60)
+	seconds %= 60
+
+	let components = []
+
+	if (years > 0) components.push(`${years} year${years > 1 ? 's' : ''}`)
+
+	if (days > 0) components.push(`${days} day${days > 1 ? 's' : ''}`)
+
+	if (hours > 0) components.push(`${hours} hour${hours > 1 ? 's' : ''}`)
+
+	if (minutes > 0) components.push(`${minutes} minute${minutes > 1 ? 's' : ''}`)
+
+	if (seconds > 0) components.push(`${seconds} second${seconds > 1 ? 's' : ''}`)
+
+	if (components.length === 1) {
+		return components[0]
+	} else if (components.length === 2) {
+		return `${components[0]} and ${components[1]}`
+	} else {
+		let lastComponent = components.pop()
+		return `${components.join(', ')} and ${lastComponent}`
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 module.exports = formatDuration

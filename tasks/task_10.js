@@ -13,7 +13,9 @@ function print(a,b) {
 * */
 
 function flip() {
-
+	return function (...args) {
+		return fn(...args.reverse())
+	}
 }
 
 module.exports = flip
